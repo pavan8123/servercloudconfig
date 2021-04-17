@@ -1,0 +1,31 @@
+server:
+  port: 9147
+ 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka 
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+            - GET
+      routes:
+      - id: swethaModule
+        uri: lb://SWETHA-SERVER
+        predicates:
+        - Path=/swetha/**
+      - id: pavanModule
+        uri: lb://PAVAN-SERVER
+        predicates:
+        - Path=/pavan/**
+        
+
+     
